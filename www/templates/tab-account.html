@@ -1,0 +1,19 @@
+<ion-view view-title="Account ({{nama}})" cache-view="false">
+    <ion-content ng-controller="AccountCtrl">
+        <ion-list>
+            <form ng-submit="login()">
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="Username" ng-model="username" />
+                </label>
+                <label class="item item-input item-stacked-label">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="Password" ng-model="password" />
+                </label>
+                <button class="button button-block button-balanced">
+                    Login
+                </button>
+            </form>
+        </ion-list>
+    </ion-content>
+</ion-view>

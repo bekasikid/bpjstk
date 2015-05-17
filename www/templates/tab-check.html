@@ -1,0 +1,189 @@
+<ion-view view-title="Status ({{nama}})" cache-view="false">
+    <ion-content class="list" ng-controller="StatusCtrl">
+            <form ng-submit="kirim()">
+                <div class="item item-input-inset">
+                    <label class="item-input-wrapper">
+                        <input type="text" placeholder="NIK" ng-model="nik">
+                    </label>
+                    <button class="button button-small">
+                        Check
+                    </button>
+                </div>
+            </form>
+            <form ng-submit="inquiry()">
+                <div>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Response</span>
+                        <input type="text" placeholder="No BPJS" ng-model="response.noerr" readonly />
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">User Response</span>
+                        <input type="text" placeholder="Response" ng-model="user_status"readonly />
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">No BPJS</span>
+                        <input type="text" placeholder="No BPJS" ng-model="response.no_bpjs" readonly/>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Kode Iuran</span>
+                        <input type="text" placeholder="Kode Iuran" ng-model="response.kode_iuran" readonly/>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Nama</span>
+                        <input type="text" placeholder="Nama" ng-model="response.nama" readonly />
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Tgl Lahir</span>
+                        <input type="text" placeholder="Tgl Lahir" ng-model="response.tgl_lahir" readonly />
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Phone</span>
+                        <input type="text" placeholder="Phone" ng-model="response.phone" readonly />
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Pekerjaan</span>
+                        <input type="text" placeholder="Pekerjaan" ng-model="response.pekerjaan">
+                    </label>
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            Propinsi
+                        </div>
+                        <select ng-model="propinsi"
+                                ng-options="item.nama_propinsi for item in provinces track by item.kode_propinsi"
+                                ng-change="rubah(propinsi)">
+                        </select>
+                    </label>
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            Wilayah Kerja
+                        </div>
+                        <select ng-model="wilayah"
+                                ng-options="area.nama_wilayah for area in areas track by area.kode_wilayah">
+                        </select>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Awal Kerja</span>
+                        <input type="text" placeholder="Awal Kerja" ng-model="response.awal_kerja">
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Akhir Kerja</span>
+                        <input type="text" placeholder="Akhir Kerja" ng-model="response.akhir_kerja">
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Penghasilan</span>
+                        <input type="text" placeholder="Penghasilan" ng-model="penghasilan">
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Tgl Efektif</span>
+                        <input type="text" placeholder="Tgl Efektif" ng-model="response.status.tgl_efektif" readonly />
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Tgl Akhir</span>
+                        <input type="text" placeholder="Tgl Akhir" ng-model="response.status.tgl_akhir" readonly />
+                    </label>
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            Periode
+                        </div>
+                        <select ng-model="periode">
+                            <option value="1">1</option>
+                            <option value="3">3</option>
+                            <option value="6">6</option>
+                            <option value="9">9</option>
+                            <option value="12">12</option>
+                        </select>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Program</span>
+                        <ul >
+                            <li class="item item-checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" ng-model="jht" ng-true-value="1" ng-false-value="0">
+                                </label>
+                                Jaminan Hari Tua
+                            </li>
+                            <li class="item item-checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" ng-model="jkk" value="1" ng-true-value="1" ng-false-value="0" disabled>
+                                </label>
+                                Jaminan Kecelakaan Kerja
+                            </li>
+                            <li class="item item-checkbox">
+                                <label class="checkbox">
+                                    <input type="checkbox" ng-model="jkm" value="1" ng-true-value="1" ng-false-value="0" disabled>
+                                </label>
+                                Jaminan Kematian
+                            </li>
+                        </ul>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Nominal Program</span>
+                        <ul >
+                            <li class="item item-checkbox">
+                                <label class="item item-input item-stacked-label">
+                                    <span class="input-label">Jaminan Hari Tua</span>
+                                    <input type="text" placeholder="Jaminan Hari Tua" ng-model="nom_jht" readonly />
+                                </label>
+                            </li>
+                            <li class="item item-checkbox">
+                                <label class="item item-input item-stacked-label">
+                                    <span class="input-label">Jaminan Kecelakaan Kerja</span>
+                                    <input type="text" placeholder="Jaminan Kecelakaan Kerja" ng-model="nom_jkk" readonly />
+                                </label>
+                            </li>
+                            <li class="item item-checkbox">
+                                <label class="item item-input item-stacked-label">
+                                    <span class="input-label">Jaminan Kematian</span>
+                                    <input type="text" placeholder="Jaminan Kematian" ng-model="nom_jkm" readonly />
+                                </label>
+                            </li>
+                        </ul>
+                    </label>
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            Kantor Cabang BPJS
+                        </div>
+                        <select ng-model="kantor"
+                                ng-options="office.alamat_kantor for office in offices track by office.kode_kantor">
+                        </select>
+                    </label>
+                    <label class="item item-input item-stacked-label">
+                        <span class="input-label">Jumlah Bayar</span>
+                        <ul >
+                            <li class="item item-checkbox">
+                                <label class="item item-input item-stacked-label">
+                                    <span class="input-label">Jumlah Bayar</span>
+                                    <input type="text" placeholder="Jumlah Bayar" ng-model="jumlah_bayar" readonly />
+                                </label>
+                            </li>
+                            <li class="item item-checkbox">
+                                <label class="item item-input item-stacked-label">
+                                    <span class="input-label">Biaya Transaksi</span>
+                                    <input type="text" placeholder="Biaya Transaksi" ng-model="biaya_transaksi" readonly />
+                                </label>
+                            </li>
+                            <li class="item item-checkbox">
+                                <label class="item item-input item-stacked-label">
+                                    <span class="input-label">Total Bayar</span>
+                                    <input type="text" placeholder="Total Bayar" ng-model="total_bayar" readonly />
+                                </label>
+                            </li>
+                        </ul>
+                    </label>
+                    <button class="button button-block button-balanced" ng-if="response.noerr==410 || response.noerr==400" >
+                        Hitung
+                    </button>
+                    </div>
+                </form>
+            <form ng-submit="bayar()">
+                <div>
+                    <input type="hidden" ng-model="log_id" readonly />
+                    <input type="hidden" ng-model="reffid" readonly />
+                    <button class="button button-block button-balanced" ng-if="response.noerr==410 || response.noerr==400">
+                        Bayar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>
